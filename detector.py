@@ -26,11 +26,11 @@ def is_phishy(url):
     score = sum(rule(hostname) for rule in rules)
 
     if score >= 3:
-        label = "Dangerous 🔴"
+        label = "Dangerous "
     elif score == 2:
-        label = "Suspicious 🟡"
+        label = "Suspicious "
     else:
-        label = "Safe 🟢"
+        label = "Safe "
     return label
 
 def cli():
