@@ -16,18 +16,18 @@ def is_phishy(url):
     
     # Simple rules
     rules = [
-        lambda u: '-' in u,                    # hyphens in domain
-        lambda u: u.count('.') > 3,           # too many subdomains
-        lambda u: any(c.isdigit() for c in u if not u.startswith('www')),  # digits in domain
-        lambda u: u.replace('.', '').isdigit(),  # IP address as domain
-        lambda u: len(u) > 75                  # very long URL
+        lambda u: '-' in u,                               # hyphens in domain
+        lambda u: u.count('.') > 3,                       # too many subdomains
+        lambda u: any(c.isdigit() for c in u),            # ANY digit in domain
+        lambda u: len(u) > 50,                            # too large domain names
+        lambda u: not u.endswith((".com", ".org", ".net", ".gov", ".edu")) # unusual TLDs
     ]
 
     score = sum(rule(hostname) for rule in rules)
 
-    if score >= 3:
+    if score >= 2:
         label = "Dangerous "
-    elif score == 2:
+    elif score == 1:
         label = "Suspicious "
     else:
         label = "Safe "
